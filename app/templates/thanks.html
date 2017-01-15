@@ -1,0 +1,28 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href="static/base.css" />
+    <div class="contain_form">
+        <iframe src="//giphy.com/embed/26FPOogenQv5eOZHO" width="480" height="345" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <h1>Thank you!</h1>
+        <p>We really appreciate your help with this study, {{ user }}.</p>
+        <p>We promise not to share your data, and we'd love for you to pass this survey along to others!</p>
+        <p><input id="segmentsdone" type="submit" onclick="location.href='/video2'" value="Another Video"><span id="instruct"></span></p>
+        <p><input type="submit" onclick="location.href='/results'" value="View Results"></p>
+        <p>If you have any questions or concerns, please contact Caitlin at cas836@nyu.edu.</p>
+    </div>
+    <script>
+		$('#segmentsdone').mouseover(function(){
+		console.log('hovering');
+		var instruct = '  Do you want to go back and do another video?';
+		$('#instruct').html(instruct);
+		});
+		$('#segmentsdone').mouseleave(function(){
+		console.log('not hovering');
+		var instruct = '';
+		$('#instruct').html(instruct);
+		});
+
+    </script>
+{% endblock %}

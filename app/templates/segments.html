@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encode Video</title>
+    <style>
+      body {
+        padding: 0; 
+        margin: 0;
+      } 
+      canvas {
+        position:absolute; 
+        top:614px; 
+        left:40px;
+        z-index:100;
+      } 
+      video {
+        position:relative;
+        z-index:-1;
+      }
+      form {
+        position: absolute;
+        top: 640px;
+      }
+      #addendum {
+/*        display:hide;
+*/      }
+      #add-button {
+        margin-left:360px;
+      }
+      .errors {
+        color:red;
+      }
+      .error {
+        border: 1px solid red;
+      }
+    </style>
+</head>
+<body>
+{% extends "base.html" %}
+{% block content %}
+<h3>Video {{user_num}} / 3
+<div class="flashes">
+    {% for message in get_flashed_messages() %}
+    {{ message }}
+    {% endfor %}
+</div>
+    {% if form.errors %}
+    <div class="errors">Your data was not saved!</div>
+    {% endif %}
+</h3>
+<!--<h2>Encode Movements for Video  {{ num }}</h2>-->
+
+<h2>Press and hold <img src="static/key.png" height="26"> key on your keyboard to add a segment.  Drag segment endpoints to adjust times.</h2>
+<!--<video id="video" controls preload="auto" height="400" canplaythrough='true'></video>-->
+
+<form method="POST">
+<!-- just to display all potential errors -->
+{% if form.errors %}
+    <ul class="errors">Hey there! Something went wrong! Please check that you've filled out all fields and try submitting again.</br>If you have already seen this message, please try again again. Thanks! </br>
+        <!--{% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}-->
+    </ul>
+{% endif %}
+
+    <div data-toggle="fieldset" id="phone-fieldset">
+         <h3>Movement Segments <button type="button" id="add-button" data-toggle="fieldset-add-row"
+                                          data-target="#phone-fieldset">Add Movement Manually</button></h3>
+          <h4>Once the video has loaded, press and hold down <img src="static/key.png" height="18"> key on your keyboard (below DELETE) for the duration of each movement you see.</br>Note: Movement segments may be out of order. This tool is in beta, so please try to manually adjust times if the code breaks.</h4>
+        <table>
+            <tr>
+                <th>Start Time (s)</th>
+                <th>End Time (s)</th>
+                <th>Quality</th>
+                <th>Emotion</th>
+                <th>Body Parts Involved</th>
+                <th></th>
+            </tr>
+            {% for segment in form.segments %}
+                <tr data-toggle="fieldset-entry">
+                {% if segment.start_time.errors %}
+                  <td class="error">{{ segment.start_time }}</td>
+                {% else %}
+                  <td>{{ segment.start_time }}</td>
+                {% endif %}
+                {% if segment.end_time.errors %}
+                  <td class="error">{{ segment.end_time }}</td>
+                {% else %}
+                  <td>{{ segment.end_time }}</td>
+                {% endif %}
+                {% if segment.laban_effort.errors %}
+                  <td class="error">{{ segment.laban_effort }}</td>
+                {% else %}
+                  <td>{{ segment.laban_effort }}</td>
+                {% endif %}
+                {% if segment.emotion.errors %}
+                  <td class="error">{{ segment.emotion }}</td>
+                {% else %}
+                  <td>{{ segment.emotion }}</td>
+                {% endif %}
+                {% if segment.body.errors %}
+                  <td class="error">{{ segment.body }}</td>
+                {% else %}
+                  <td>{{ segment.body }}</td>
+                {% endif %}
+                    <td><button type="button" data-toggle="fieldset-remove-row" id="phone-{{loop.index0}}-remove">Remove</button></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <!--<button type="button" data-toggle="fieldset-add-row"
+                                          data-target="#phone-fieldset">+ Add Movement</button>-->
+    </div>
+    <div id='addendum'>
+      <p><input id="segmentsdone" type="submit" value="Finished"><span id="instruct"></span></p>
+    
+    </div>
+    {{ form.hidden_tag() }}
+
+
+<!--<h5> <a href="{{ url_for('get_user') }}">Home</a> </h5>-->
+
+<!--<p id='submit_button'>{{ form.submit }}</p>-->
+</form>
+
+
+<script>
+//console.log({{choice}});
+if ({{ choice }}){
+  $('#segmentsdone').click(function(){
+      $('#addendum').html('<p>Overall, what emotions are being expressed in this video?</br>{{ form.overall(size=100) }}</p><p>Overall, how positive/negative are the emotions expressed?</br>{{ form.valence }}</p><p>Overall, how aroused/excited is the person in the video?</br>{{ form.arousal }}</p><p>How do you know?</br>{{ form.reason(size=100) }}</p><p>{{ form.submit }}{{ form.complete }}</p>');
+  });
+} else {
+  $('#segmentsdone').click(function(){
+      $('#addendum').html('<p>Overall, what emotions are being expressed in this video?</br>{{ form.overall(size=100) }}</p><p>Overall, how positive/negative are the emotions expressed?</br>{{ form.valence }}<p></p>Overall, how aroused/excited is the person in the video?</br>{{ form.arousal }}</p><p>How do you know?</br>{{ form.reason(size=100) }}</p><p>{{ form.submit }}</p>');
+  });
+}
+
+{% if form.errors %}
+  if ({{ choice }}){
+    $('#addendum').html('<p>Overall, what emotions are being expressed in this video?</br>{% if form.overall.errors %}<div class="error">{{ form.overall(size=100) }}</div>{% else %}{{ form.overall(size=100) }}{% endif %}</p><p>Overall, how positive/negative are the emotions expressed?</br>{% if form.valence.errors %}<div class="error">{{ form.valence }}</div>{% else %}{{ form.valence }}{% endif %}</p><p>Overall, how aroused/excited is the person in the video?</br>{% if form.arousal.errors %}<div class="error">{{ form.arousal }}</div>{% else %}{{ form.arousal }}{% endif %}</p><p>How do you know?</br>{{ form.reason(size=100) }}</p><p>{{ form.submit }}{{ form.complete }}</p>');
+  } else {
+        $('#addendum').html('<p>Overall, what emotions are being expressed in this video?</br>{% if form.overall.errors %}<div class="error">{{ form.overall(size=100) }}</div>{% else %}{{ form.overall(size=100) }}{% endif %}</p><p>Overall, how positive/negative are the emotions expressed?</br>{% if form.valence.errors %}<div class="error">{{ form.valence }}</div>{% else %}{{ form.valence }}{% endif %}</p><p>Overall, how aroused/excited is the person in the video?</br>{% if form.arousal.errors %}<div class="error">{{ form.arousal }}</div>{% else %}{{ form.arousal }}{% endif %}</p>{{ form.reason(size=100) }}</p><p>{{ form.submit }}</p>');
+      }
+{% endif %}
+
+$('#segmentsdone').mouseover(function(){
+    //console.log('hovering');
+    var instruct = '  Wait! Are you finished adding movements?';
+    $('#instruct').html(instruct);
+});
+$('#segmentsdone').mouseleave(function(){
+    //console.log('not hovering');
+    var instruct = '';
+    $('#instruct').html(instruct);
+});
+
+var vidname = '{{ this_video }}';
+var duration = {{ duration }};
+
+ 
+</script>
+<script src="{{ url_for("static", filename="js/page.js") }}"></script>
+<script src="static/js/p5.js" type="text/javascript"></script>
+<script src="static/js/p5.dom.js" type="text/javascript"></script>
+{% endblock %}
+</body>
+</html>

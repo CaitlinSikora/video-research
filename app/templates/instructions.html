@@ -1,0 +1,65 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/base.css" />
+    <style>
+        tr {
+            padding: 0 40px;
+        }
+        th {
+            padding: 10px 20px;
+        }
+    </style>
+    <div class="contain_form">
+        <h1>Instructions</h1>
+        <p>Thanks for your willingness to participate in this study.</p>
+            <p>In this survey, you'll be asked to watch 3 short videos and label expressive movements. You will mark the timeline for each expressive movement you see. Then, you'll assign one of the following qualities to each movement from the drop down menu:
+                <table>
+                    <tr>
+                        <th>Slash</th>
+                        <th>Dab</th>
+                        <th>Wring</th>
+                        <th>Flick</th>
+                        <th>Punch</th>
+                        <th>Press</th>
+                        <th>Glide</th>
+                        <th>Float</th>
+                    </tr>
+                </table>
+            <p>There are no wrong answers here. Trust your intuition. There are no wrong answers. Just use your best instincts. At this point, you'll be asked to enter the emotions being expressed and the body parts involved in each movement. When you have finished adding all of the movements you see, you'll answer a few quick questions about the overall video. Please fill out the form completely. The video below will demonstrate.</p>
+            <video id="video" controls preload="auto" height="400" canplaythrough='true'>
+            <!--<source src="static/blurredVideos/instructions.mp4" type='video/mp4'>-->
+            </video>
+            <p>Data will be collected and analyzed privately for a thesis project at NYU Tandon School of Engineering. Participant data will not be shared.</p>
+            <p>Do you understand the instructions and agree to participate?</p>
+            <form action="/participate">
+                <input type="submit" value="Agree and Begin" />
+            </form>
+
+            <p>If you have any questions, please email Caitlin at cas836@nyu.edu. Thanks again!</p>
+    </div>
+    <script>
+console.log("Downloading video...hellip;Please wait...")
+var xhr = new XMLHttpRequest();
+xhr.open('GET', "static/blurredVideos/instructions.mp4", true);
+xhr.responseType = 'blob';
+xhr.onload = function(e) {
+  if (this.status == 200) {
+    console.log("got it");
+    var myBlob = this.response;
+    var vid = (window.webkitURL ? webkitURL : URL).createObjectURL(myBlob);
+    // myBlob is now the blob that the object URL pointed to.
+    var video = document.getElementById("video");
+    console.log("Loading video into element");
+    video.src = vid;
+    // not needed if autoplay is set for the video element
+    // video.play()
+   }
+  }
+
+xhr.send();
+    </script>
+    <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+{% endblock %}

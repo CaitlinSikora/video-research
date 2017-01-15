@@ -1,0 +1,27 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<!--<video controls>
+  <source src="static/blurredVideos/video1.webm" type="video/mp4">
+  I'm sorry; your browser doesn't support HTML5 video in WebM with VP8/VP9 or MP4 with H.264.
+</video>-->
+    <link rel="stylesheet" href="static/base.css" />
+    <div class="contain_form">
+        <iframe src="//giphy.com/embed/ggP7QKGmTsv4Y" width="480" height="261" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <h1>Enter your information</h1>
+        <h3>Note: this survey must be completed in the Chrome browser. Thanks!</h3>
+        <form action="/" method="post">
+            {{ form.hidden_tag() }}
+            <p>Please enter the following information for tracking purposes. Your data will be kept private.</p>
+                <p>
+                Your Name {{ form.user_name(size=80) }}<br>
+                Age {{ form.age(size=96) }}<br>
+                Gender Identity {{ form.gender_id(size=81) }}<br>
+                Country of Birth {{ form.country(size=94) }}<br>
+                Have you studied movement formally? If so, for how many years? {{ form.movementyears(size=34) }}<br>
+            </p>
+            <p><input type="submit" value="Continue"></p>
+        </form>
+    </div>
+{% endblock %}

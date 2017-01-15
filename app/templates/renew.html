@@ -1,0 +1,22 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<!--<video controls>
+  <source src="static/blurredVideos/video1.webm" type="video/mp4">
+  I'm sorry; your browser doesn't support HTML5 video in WebM with VP8/VP9 or MP4 with H.264.
+</video>-->
+    <link rel="stylesheet" href="static/base.css" />
+    <div class="contain_form">
+        <iframe src="//giphy.com/embed/ggP7QKGmTsv4Y" width="480" height="261" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <h2>Hey, something seems to have gone wrong.</h2>
+        <form action="" method="post" name="login">
+            {{ form.hidden_tag() }}
+            <p>Please remind us who you are:</p>
+                <p>
+                Your Name {{ form.user_name(size=80) }}<br>
+                </p>
+            <p><input type="submit" value="Continue"></p>
+        </form>
+    </div>
+{% endblock %}
