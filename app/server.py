@@ -5,7 +5,10 @@ from .forms import UserForm, SegmentForm, CombinedForm, RenewForm
 from .models import User, Segment, Video, Numbers
 import random
 
-videos = []
+videos = ['static/blurredVideos/video2.mp4',
+'static/blurredVideos/video4.mp4',
+'static/blurredVideos/video5.mp4',
+'static/blurredVideos/video6.mp4']
 
 ################ PAGES ####################
 
@@ -13,7 +16,7 @@ videos = []
 def render_home():
 	form = UserForm()
 	if form.validate_on_submit():
-		enter_user(form)
+		enter_data(form,User,numvideos=1,whichvideos="")
 		return redirect(url_for('render_instructions'))
 	return render_template('index.html', form=form)
 
@@ -22,11 +25,15 @@ def render_instructions():
 	# Will call the videos endpoint and render the survey page
 	return render_template('instructions.html')
 
-@app.route('/participate',methods=['GET'])
+@app.route('/participate',methods=['GET','POST'])
 def render_survey():
 	# Will call the videos endpoint and render the survey page
-	form = CombinedForm()
-	return render_template('segments.html', form=form)
+	video = Video(user_name=session['user_name'],video=0,segments=[Segment(start_time="0",end_time="10")])    
+	form = CombinedForm(obj=video)
+	if form.validate_on_submit():
+		enter_data(form,Video,user_name=session['user_name'],video=0,segments=[Segment(start_time="0",end_time="10")])
+		return redirect(url_for('render_instructions'))
+	return render_template('segments.html', form=form, choice=1,this_video=videos[0])
 
 @app.route('/thanks',methods=['GET'])
 def render_thanks():
@@ -47,10 +54,15 @@ def render_results():
 ################ ACTIONS ####################
 
 # @app.route('/enter_user',methods=['POST'])
-def enter_user(form):
-	user = User(user_name="name",numvideos=1,whichvideos="")
-	form.populate_obj(user)
-	print user
+def enter_data(form, model, **kwargs):
+	# TODO: need to test the model to make sure it's valid
+	the_object = model(**kwargs)
+	print the_object
+	for kwarg in kwargs:
+		print kwargs[kwarg]
+	form.populate_obj(the_object)
+	db.session.add(the_object)
+	db.session.commit()
 	return
 
 @app.route('/videos',methods=['GET'])
