@@ -8,7 +8,13 @@ import random
 videos = ['static/blurredVideos/video2.mp4',
 'static/blurredVideos/video4.mp4',
 'static/blurredVideos/video5.mp4',
-'static/blurredVideos/video6.mp4']
+'static/blurredVideos/video6.mp4',
+'static/mocapVideos/AlisonAngryClip.mp4',
+'static/mocapVideos/EdwinContentClip.mp4',
+'static/mocapVideos/AlisonJoyfulClip.mp4',
+'static/mocapVideos/EdwinSadClip.mp4']
+
+durations = [29.504,25.301333,20.309333,22.378667, 31.296,29.290667,35.093333,31.445333]
 
 ################ PAGES ####################
 
@@ -33,7 +39,7 @@ def render_survey():
 	if form.validate_on_submit():
 		enter_data(form,Video,user_name=session['user_name'],video=0,segments=[Segment(start_time="0",end_time="10")])
 		return redirect(url_for('render_instructions'))
-	return render_template('segments.html', form=form, choice=1,this_video=videos[0])
+	return render_template('segments.html', form=form, choice=1,this_video=videos[0], duration=durations[0])
 
 @app.route('/thanks',methods=['GET'])
 def render_thanks():

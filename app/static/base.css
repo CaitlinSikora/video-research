@@ -1,25 +1,38 @@
 /* Some CSS for a little style */
 
 .content {
-            background:white;
-            padding: 10px 20px;
-            color: #444;
-            font-family: 'Roboto', sans-serif;
-            text-align:left;
-            vertical-align:middle;
-        }
+    background:white;
+    padding: 10px 20px;
+    color: #444;
+    font-family: 'Roboto', sans-serif;
+    text-align:left;
+    vertical-align:middle;
+}
         
 .title_bar {
     background-color: #1474cd;
     padding: 1px 15px 1px 15px;
     color: white;
     font-family: 'Ubuntu', sans-serif;
-
 }
+
 .contain_form {
-        vertical-align:middle;
-        text-align:left;
-        padding:24px;
+    vertical-align:middle;
+    text-align:left;
+    padding:24px;
+}
+
+.list-options li {
+    display: inline;
+    padding: 0 12px;
+    list-style: none;
+}
+
+tr {
+    padding: 0 40px;
+}
+th {
+    padding: 10px 20px;
 }
 
 h1 {

@@ -1,0 +1,13 @@
+{
+  "name": "video-research",
+  "version": "1.2.0",
+  "description": "re-written ala Ilona and Caitlin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaitlinSikora/video-research.git"
+  },
+  "author": "Caitlin and Ilona",
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  }
+}
