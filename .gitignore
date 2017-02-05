@@ -1,5 +1,5 @@
 venv/
-app/static/app.db
+app/app.db
 app/viewsnew.py
 config.py
 app/static/blurredVideos/*
