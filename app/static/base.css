@@ -60,7 +60,7 @@ canvas {
 } 
 video {
     position:relative;
-    z-index:-1;
+    /*z-index:-1;*/
 }
 .segments body {
     padding: 0; 

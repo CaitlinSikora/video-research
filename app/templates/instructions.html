@@ -25,25 +25,6 @@
         <a href="/participate"><button>Agree and Begin</button></a>
         <p>If you have any questions, please email Caitlin at cas836@nyu.edu. Thanks again!</p>
     </div>
-    <script>
-    console.log("Downloading video...hellip;Please wait...")
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', "static/blurredVideos/instructions.mp4", true);
-    xhr.responseType = 'blob';
-    xhr.onload = function(e) {
-      if (this.status == 200) {
-        console.log("got it");
-        var myBlob = this.response;
-        var vid = (window.webkitURL ? webkitURL : URL).createObjectURL(myBlob);
-        // myBlob is now the blob that the object URL pointed to.
-        var video = document.getElementById("video");
-        console.log("Loading video into element");
-        video.src = vid;
-        // not needed if autoplay is set for the video element
-        // video.play()
-       }
-    }
-    xhr.send();
-    </script>
     <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+    <script src="static/js/instructions.js"></script>
 {% endblock %}
