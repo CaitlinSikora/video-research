@@ -1,60 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Encode Video</title>
-    <style>
-      body {
-        padding: 0; 
-        margin: 0;
-      } 
-      canvas {
-        position:absolute; 
-        top:614px; 
-        left:40px;
-        z-index:100;
-      } 
-      video {
-        position:relative;
-        z-index:-1;
-      }
-      form {
-        position: absolute;
-        top: 640px;
-      }
-      #addendum {
-/*        display:hide;
-*/      }
-      #add-button {
-        margin-left:360px;
-      }
-      .errors {
-        color:red;
-      }
-      .error {
-        border: 1px solid red;
-      }
-    </style>
+  <meta charset="UTF-8">
+  <title>Encode Video</title>
 </head>
-<body>
+<body class="segments">
 {% extends "base.html" %}
 {% block content %}
 <h3>Video {{user_num}} / 3
 <div class="flashes">
-    {% for message in get_flashed_messages() %}
-    {{ message }}
-    {% endfor %}
+  {% for message in get_flashed_messages() %}
+  {{ message }}
+  {% endfor %}
 </div>
-    {% if form.errors %}
-    <div class="errors">Your data was not saved!</div>
-    {% endif %}
+  {% if form.errors %}
+  <div class="errors">Your data was not saved!</div>
+  {% endif %}
 </h3>
 <!--<h2>Encode Movements for Video  {{ num }}</h2>-->
 
 <h2>Press and hold <img src="static/key.png" height="26"> key on your keyboard to add a segment.  Drag segment endpoints to adjust times.</h2>
 <!--<video id="video" controls preload="auto" height="400" canplaythrough='true'></video>-->
 
-<form method="POST">
+<form class="segments" method="POST">
 <!-- just to display all potential errors -->
 {% if form.errors %}
     <ul class="errors">Hey there! Something went wrong! Please check that you've filled out all fields and try submitting again.</br>If you have already seen this message, please try again again. Thanks! </br>

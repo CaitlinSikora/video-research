@@ -3,44 +3,23 @@
 
 {% block content %}
     <link rel="stylesheet" href="static/base.css" />
-    <style>
-        tr {
-            padding: 0 40px;
-        }
-        th {
-            padding: 10px 20px;
-        }
-        img {
-            display: inline;
-            max-width:220px;
-        }
-        .holdimages {
-            float: right;
-            margin: 0 20px 0 20px;
-        }
-        p {
-            font-size: 14px;
-        }
-    </style>
-    <div>
+    <div class="results">
         <h3>About the Study</h3>
-        <div class='holdimages'><img src='static/Efforts1.png'><img src='static/Efforts2.png'></div>
+        <div class='holdimages'><img class="results" src='static/Efforts1.png'><img class="results" src='static/Efforts2.png'></div>
         <p>The sensing, interpreting, and designing of movement for interactions with computers could allow machines greater capacity to interpret the actions of users the way humans do in face-to-face conversation. With a greater understanding of how humans interpret body movement, we could train machines to decipher and respond to the intentions of individual users in a more personal way. We could even design systems that intuit a user's feelings, leading to more satisfying, emotionally resonant experiences with technology. Harnessing the power of human movement as a medium for communication in the context of technology could have applications in the design of more sensitive assistive technologies, more perceptive smart homes, and more socially capable robots and conversational virtual characters. In order to realize this vision, we must improve our understanding of how humans imbue and extract meaning in and from body movement. Traditional linguistic and cognitive science approaches tend to consider shapes of specific, culturally defined gestures, timing of gestures with speech, and spatial referencing of deictic gestures (pointing). Interfaces between humans and computers echo this line of reasoning with one-to-one associations of mechanically specific movements and deictic gestures dominating the design of movement-based interactions. But these types of movements represent a small subset of the expressive movements performed by humans in their daily lives. In many cases, the quality with which a movement is performed is as communicative as the shape of the movement, but how do we describe and classify a movement's quality?</p>
         <p>A series of pilot studies was conducted to assess the relevance of a particular lexicon of movement qualities from the dance discipline– specifically, the Laban Effort system– to the design of gestural interfaces. We determine that humans can recognize at least a subset of the Laban Efforts– Punch, Press, Glide, Wring, Dab, Slash, Flick, and Float– with a reasonable degree of reliability. Moreover, humans are likely to non-consciously perform these movement qualities when engaged in emotionally charged conversation and expression. We complete this research by drawing connections between several of the Laban Efforts and consistently interpreted and experienced emotional intentions. The links below lead to visualizations of the results from the second pilot study in this research. Participants were asked to encode at least three videos by noting start and end times for body movements that they perceived to be expressive, classifying each movement with a Laban Effort and an emotional word, as well as noting involved body parts. For participants, the task of encoding a video with specific times is tedious and time-consuming, so a web application was developed to aid in the process.</p>
         <h3>Results</h3>
-        <p>Click on a video number to see how body language was interpretted in each video:
-            <table>
-                <tr>
-                    <th><a href="{{ url_for('segmentvis') }}?video=1">Video 1</a></th>
-                    <th><a href="{{ url_for('segmentvis') }}?video=2">Video 2</a></th>
-                    <th><a href="{{ url_for('segmentvis') }}?video=3">Video 3</a></th>
-                    <th><a href="{{ url_for('segmentvis') }}?video=4">Video 4</a></th>
-                    <th><a href="{{ url_for('segmentvis') }}?video=5">Video 5</a></th>
-                    <th><a href="{{ url_for('segmentvis') }}?video=6">Video 6</a></th>
-                    <th><a href="{{ url_for('segmentvis') }}?video=7">Video 7</a></th>
-                    <th><a href="{{ url_for('segmentvis') }}?video=8">Video 8</a></th>
-                </tr>
-            </table>
+        <p>Click on a video number to see how body language was interpretted in each video:</p>
+        <ul class="list-options">
+            <li><a href="{{ url_for('segmentvis') }}?video=1">Video 1</a></li>
+            <li><a href="{{ url_for('segmentvis') }}?video=2">Video 2</a></li>
+            <li><a href="{{ url_for('segmentvis') }}?video=3">Video 3</a></li>
+            <li><a href="{{ url_for('segmentvis') }}?video=4">Video 4</a></li>
+            <li><a href="{{ url_for('segmentvis') }}?video=5">Video 5</a></li>
+            <li><a href="{{ url_for('segmentvis') }}?video=6">Video 6</a></li>
+            <li><a href="{{ url_for('segmentvis') }}?video=7">Video 7</a></li>
+            <li><a href="{{ url_for('segmentvis') }}?video=8">Video 8</a></li>
+        </ul>
         <p>The volunteers who participated in the study included: 65 people with an average age of 33.4 years, 38 women and 27 men, 31 people with average 16 years of movement training and 34 with none, and 56 people from the United States and 9 people from other countries. In order to assess the accuracy of Effort and affect classifications amongst the participants, we need to have agreed upon movements (samples) and a correct label (prediction). Because the problem of time segmentation was left open to participants, we must determine the most commonly identified segments and compare movement quality labels that fall into those segments. We expect the precision of times identified by participants to be somewhat low. To address this issue, K-Means clustering of all segments was used to identify the most likely time segments for each video. Each of the clusters was analyzed for both Effort and affect classifications. Effort accuracy was calculated taking the mode as the correct Effort label.</p>
         <p>The results above feature the original videos from the survey juxtaposed with all of the timelines of segments submitted by survey participants with start and end times marked. A composite timeline shows start and end times for all segments identified by participants as well as clusters identified by K-Means. A scatter plot of End-time vs. Start-time helps users to visualize the clusters of segments. The user can play the video to see instantaneous Effort modes and accuracies updated in real-time, along with individual participant’s Effort labels, emotions, and body parts at each time. Cluster Efforts, accuracies, and spreads are also updated with video play. Average participant-encoded valence and arousal, along with standard deviation of each, are displayed for each video to allow users to better understand the reliability with which participants were able to interpret emotions from the body movements in the videos.</p>
         <p>For more information on this research, feel free to browse the full <a href='/static/HumanMovementQuality.pdf'>paper</a>.</p>
