@@ -22,7 +22,8 @@ durations = [29.504,25.301333,20.309333,22.378667, 31.296,29.290667,35.093333,31
 def render_home():
 	form = UserForm()
 	if form.validate_on_submit():
-		enter_data(form,User,numvideos=1,whichvideos="")
+		user = enter_data(form,User,numvideos=1,whichvideos="")
+		session['user_name'] = user.user_name
 		return redirect(url_for('render_instructions'))
 	return render_template('index.html', form=form)
 
@@ -69,7 +70,9 @@ def enter_data(form, model, **kwargs):
 	form.populate_obj(the_object)
 	db.session.add(the_object)
 	db.session.commit()
-	return
+	# We need to return the object to allow it to be accessed out this method
+	# This could also serve as a "success" test?
+	return the_object
 
 @app.route('/videos',methods=['GET'])
 def get_videos():
